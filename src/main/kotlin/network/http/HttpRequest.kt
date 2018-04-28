@@ -10,21 +10,18 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
 
-data class HttpRequest(
+class HttpRequest(
     val method: HttpMethod,
     val path: String,
-    val headers: Map<String, String>
-) {
-    fun writeToOutputStream(outputStream: OutputStream) {
-        outputStream.use {
-            outputStream.write("$method $path $HTTP_VERSION".toByteArray(HTTP_ENCODING))
-            outputStream.write(HTTP_SEPARATOR)
-            headers.forEach { header ->
-                outputStream.write("${header.key}: ${header.value}".toByteArray(HTTP_ENCODING))
-                outputStream.write(HTTP_SEPARATOR)
-            }
-            outputStream.write(HTTP_SEPARATOR)
-        }
+    headers: Map<String, String>
+) : HttpEntity(headers) {
+
+    override fun toString(): String = "HttpRequest(method=$method, path='$path', headers=$headers)"
+
+    override fun writeToOutputStream(outputStream: OutputStream) {
+        outputStream.write("$method $path $HTTP_VERSION".toByteArray(HTTP_ENCODING))
+        outputStream.write(HTTP_SEPARATOR)
+        writeHeadersToOutputStream(outputStream)
     }
 
     companion object {
@@ -40,26 +37,9 @@ data class HttpRequest(
             val path = parts[1]
             Preconditions.checkArgument(parts[2] == HTTP_VERSION)
 
-            var startIndex = requestLineEnd + HTTP_SEPARATOR.size
-            val headers = mutableMapOf<String, String>()
-            while (true) {
-                val bytesLeft = bytes.sliceArray(startIndex until bytes.size)
-                val separatorIndex = Bytes.indexOf(bytesLeft, HTTP_SEPARATOR)
-                Preconditions.checkArgument(separatorIndex != -1)
-                if (separatorIndex == 0) {
-                    break
-                }
-                val headerBytes = bytesLeft.sliceArray(0 until separatorIndex)
-                val headerLine = String(headerBytes, HTTP_ENCODING)
-                val headerColumn = headerLine.indexOf(':')
-                Preconditions.checkArgument(headerColumn != -1)
-                val headerName = headerLine.substring(0, headerColumn)
-                val headerValue = headerLine.substring(headerColumn + 2)
-                headers[headerName] = headerValue
-
-                startIndex += separatorIndex + HTTP_SEPARATOR.size
-            }
-
+            val (headers, _) =
+                parseHeadersFromBytes(
+                    bytes.sliceArray(requestLineEnd + HTTP_SEPARATOR.size until bytes.size))
             return HttpRequest(method, path, headers)
         }
     }
