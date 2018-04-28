@@ -30,6 +30,8 @@ class HttpResponse(
     }
 
     companion object {
+        const val OK_STATUS_CODE = 200
+
         fun parseFromInputStream(inputStream: InputStream): HttpResponse {
             val bytes = ByteStreams.toByteArray(inputStream)
             val statusLineEnd = Bytes.indexOf(bytes, HTTP_SEPARATOR)

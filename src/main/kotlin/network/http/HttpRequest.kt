@@ -10,7 +10,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
 
-class HttpRequest(
+open class HttpRequest(
     val method: HttpMethod,
     val path: String,
     headers: Map<String, String>

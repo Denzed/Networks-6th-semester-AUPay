@@ -22,9 +22,10 @@ fun main(args: Array<String>) {
                         HttpResponse(
                             200,
                             "OK",
-                            mapOf(Pair("Set-Cookie", "SessionID=$clientToken")),
-                            JSONObject().put("id", "100"))
+                            mapOf(Pair("Set-Cookie", "AuthToken=$clientToken")),
+                            JSONObject().put("accountId", "153"))
                     response.writeToOutputStream(socket.getOutputStream())
+                    println(response)
                     socket.shutdownOutput()
                 }
             } catch (e: Exception) {
