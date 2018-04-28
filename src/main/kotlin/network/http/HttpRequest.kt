@@ -13,7 +13,7 @@ import java.util.*
 open class HttpRequest(
     val method: HttpMethod,
     val path: String,
-    headers: Map<String, String>
+    headers: Map<String, String> = emptyMap()
 ) : HttpEntity(headers) {
 
     override fun toString(): String = "HttpRequest(method=$method, path='$path', headers=$headers)"

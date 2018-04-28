@@ -37,8 +37,20 @@ fun generateResponseForHttpRequest(request: HttpRequest): HttpResponse = try {
                 HttpResponse.OK_STATUS_CODE,
                 "OK",
                 emptyMap(),
-                JSONObject().put("balance", 15000)
-            )
+                JSONObject().put("balance", 15000))
+        }
+        path.startsWith("/pay/") -> {
+            verifyAuthTokenIsPresent(request)
+            val pathParts = path.split(Regex.fromLiteral("/"))
+            pathParts[2].toInt()
+            pathParts[3].toInt()
+            pathParts[4].toInt()
+            val paymentId = Math.abs(Random().nextInt())
+            HttpResponse(
+                HttpResponse.OK_STATUS_CODE,
+                "OK",
+                emptyMap(),
+                JSONObject().put("paymentId", paymentId))
         }
         else -> throw IllegalArgumentException()
     }
