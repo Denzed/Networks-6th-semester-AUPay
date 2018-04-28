@@ -4,10 +4,8 @@ import client.ClientWindow
 import network.data.PaymentStatus
 import network.http.HttpResponse
 import network.requests.GetPaymentsHttpRequest
-import java.awt.GridLayout
-import java.awt.Point
 import java.awt.event.ActionEvent
-import javax.swing.*
+import javax.swing.JTable
 import javax.swing.table.AbstractTableModel
 import javax.swing.table.TableModel
 
@@ -20,20 +18,7 @@ class GetPaymentsButtonListener(
         executeRequestInsideClientWindow(request) { response ->
             val tableModel = buildModelFromResponse(response)
             val table = JTable(tableModel)
-            val panel = JPanel()
-            panel.layout = GridLayout()
-            panel.add(JScrollPane(table))
-
-            val dialog = JDialog(clientWindow, true)
-            dialog.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
-            dialog.contentPane = panel
-            dialog.pack()
-            dialog.setLocationRelativeTo(clientWindow)
-            dialog.location =
-                Point(
-                    clientWindow.width / 2 - dialog.width / 2,
-                    clientWindow.height / 2 - dialog.height / 2)
-            dialog.isVisible = true
+            clientWindow.presentJTable(table)
         }
     }
 

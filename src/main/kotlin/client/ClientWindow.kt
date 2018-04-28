@@ -4,9 +4,11 @@ import client.listeners.*
 import network.SERVER_HOSTNAME
 import network.SERVER_PORT
 import java.awt.Component
+import java.awt.GridLayout
+import java.awt.Point
 import javax.swing.*
 
-class ClientWindow : JFrame() {
+class ClientWindow : JFrame("AUPay") {
     @Volatile var authToken: String? = null
     @Volatile var accountId: Int? = null
 
@@ -20,14 +22,6 @@ class ClientWindow : JFrame() {
         contentPane.layout = BoxLayout(contentPane, BoxLayout.Y_AXIS)
         add(registerButton)
         registerButton.addActionListener(RegisterButtonListener(this))
-    }
-
-    fun showUnsuccessfulRequest(statusCode: Int, statusMessage: String) {
-        JOptionPane.showMessageDialog(this, "$statusCode: $statusMessage")
-    }
-
-    fun showMessageDialog(message: String) {
-        JOptionPane.showMessageDialog(this, message)
     }
 
     fun proceedAfterSuccessfulRegistration() {
@@ -75,5 +69,28 @@ class ClientWindow : JFrame() {
         add(commandPanel)
 
         revalidate()
+    }
+
+    fun showUnsuccessfulRequest(statusCode: Int, statusMessage: String) {
+        JOptionPane.showMessageDialog(this, "$statusCode: $statusMessage")
+    }
+
+    fun showMessageDialog(message: String) {
+        JOptionPane.showMessageDialog(this, message)
+    }
+
+    fun presentJTable(table: JTable) {
+        val panel = JPanel()
+        panel.layout = GridLayout()
+        panel.add(JScrollPane(table))
+
+        val dialog = JDialog(this, true)
+        dialog.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+        dialog.contentPane = panel
+        dialog.pack()
+        dialog.setLocationRelativeTo(this)
+        dialog.location =
+            Point(this.width / 2 - dialog.width / 2, this.height / 2 - dialog.height / 2)
+        dialog.isVisible = true
     }
 }
