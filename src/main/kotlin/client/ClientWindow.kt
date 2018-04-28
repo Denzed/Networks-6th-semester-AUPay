@@ -84,7 +84,7 @@ class ClientWindow : JFrame("AUPay") {
         panel.layout = GridLayout()
         panel.add(JScrollPane(table))
 
-        val dialog = JDialog(this, true)
+        val dialog = JDialog(this)
         dialog.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
         dialog.contentPane = panel
         dialog.pack()

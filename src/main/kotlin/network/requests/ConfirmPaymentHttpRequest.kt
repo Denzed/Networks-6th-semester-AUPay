@@ -1,8 +1,8 @@
 package network.requests
 
-import network.http.HttpMethod
+import network.http.HttpRequestMethod
 
 class ConfirmPaymentHttpRequest(
     paymentId: Int,
     authToken: String
-) : AuthorizedHttpRequest(HttpMethod.POST, "/confirm/$paymentId", authToken)
+) : AuthorizedHttpRequest(HttpRequestMethod.POST, "/confirm/$paymentId", authToken)

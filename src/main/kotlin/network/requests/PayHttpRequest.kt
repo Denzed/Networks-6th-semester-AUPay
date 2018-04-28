@@ -1,10 +1,10 @@
 package network.requests
 
-import network.http.HttpMethod
+import network.http.HttpRequestMethod
 
 class PayHttpRequest(
     amount: Int,
     fromId: Int,
     toId: Int,
     authToken: String
-) : AuthorizedHttpRequest(HttpMethod.POST, "/pay/$amount/$fromId/$toId", authToken)
+) : AuthorizedHttpRequest(HttpRequestMethod.POST, "/pay/$amount/$fromId/$toId", authToken)

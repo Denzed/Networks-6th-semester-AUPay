@@ -1,7 +1,7 @@
 package network.requests
 
-import network.http.HttpMethod
+import network.http.HttpRequestMethod
 
 class BalanceHttpRequest(
     authToken: String
-) : AuthorizedHttpRequest(HttpMethod.GET, "/balance", authToken)
+) : AuthorizedHttpRequest(HttpRequestMethod.GET, "/balance", authToken)

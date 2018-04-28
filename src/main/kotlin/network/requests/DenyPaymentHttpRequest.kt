@@ -1,8 +1,8 @@
 package network.requests
 
-import network.http.HttpMethod
+import network.http.HttpRequestMethod
 
 class DenyPaymentHttpRequest(
     paymentId: Int,
     authToken: String
-) : AuthorizedHttpRequest(HttpMethod.POST, "/deny/$paymentId", authToken)
+) : AuthorizedHttpRequest(HttpRequestMethod.POST, "/deny/$paymentId", authToken)

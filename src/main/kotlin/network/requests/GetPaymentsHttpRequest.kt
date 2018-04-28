@@ -1,7 +1,7 @@
 package network.requests
 
-import network.http.HttpMethod
+import network.http.HttpRequestMethod
 
 class GetPaymentsHttpRequest(
     authToken: String
-) : AuthorizedHttpRequest(HttpMethod.GET, "/payments", authToken)
+) : AuthorizedHttpRequest(HttpRequestMethod.GET, "/payments", authToken)

@@ -11,7 +11,7 @@ import java.io.OutputStream
 import java.util.*
 
 open class HttpRequest(
-    val method: HttpMethod,
+    val method: HttpRequestMethod,
     val path: String,
     headers: Map<String, String> = emptyMap()
 ) : HttpEntity(headers) {
@@ -33,7 +33,7 @@ open class HttpRequest(
             val requestLine = String(requestLineBytes, HTTP_ENCODING)
             val parts = requestLine.split(" ")
             Preconditions.checkArgument(parts.size == 3)
-            val method = HttpMethod.valueOf(parts[0])
+            val method = HttpRequestMethod.valueOf(parts[0])
             val path = parts[1]
             Preconditions.checkArgument(parts[2] == HTTP_VERSION)
 
