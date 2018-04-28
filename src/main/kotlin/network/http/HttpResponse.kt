@@ -31,6 +31,7 @@ class HttpResponse(
 
     companion object {
         const val OK_STATUS_CODE = 200
+        const val BAD_REQUEST_STATUS_CODE = 400
 
         fun parseFromInputStream(inputStream: InputStream): HttpResponse {
             val bytes = ByteStreams.toByteArray(inputStream)
