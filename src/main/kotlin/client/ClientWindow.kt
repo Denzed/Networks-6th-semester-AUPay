@@ -63,6 +63,17 @@ class ClientWindow : JFrame() {
         getPaymentsButton.alignmentX = Component.LEFT_ALIGNMENT
         add(getPaymentsButton)
 
+        val commandPanel = JPanel()
+        commandPanel.layout = BoxLayout(commandPanel, BoxLayout.X_AXIS)
+        val confirmPaymentButton = JButton("Confirm payment")
+        confirmPaymentButton.addActionListener(ConfirmPaymentButtonListener(this))
+        commandPanel.add(confirmPaymentButton)
+        val denyPaymentButton = JButton("Deny payment")
+        denyPaymentButton.addActionListener(DenyPaymentButtonListener(this))
+        commandPanel.add(denyPaymentButton)
+        commandPanel.alignmentX = Component.LEFT_ALIGNMENT
+        add(commandPanel)
+
         revalidate()
     }
 }
