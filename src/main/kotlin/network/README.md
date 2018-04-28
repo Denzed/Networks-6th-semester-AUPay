@@ -60,7 +60,7 @@ Types of requests:
     ```http request
     HTTP/1.1 200 OK
 
-    {"payments":[{"fromAccountId":4,"paymentId":153,"toAccountId":10,"value":500,"status":"PLACED"},{"fromAccountId":18,"paymentId":154,"toAccountId":10,"value":50,"status":"SUCCESSFUL"}]}
+    {"payments":[{"fromAccountId":153,"paymentId":147982,"toAccountId":289,"value":500,"status":"PLACED"},{"fromAccountId":793,"paymentId":213009,"toAccountId":153,"value":50,"status":"SUCCESSFUL"}]}
     ```
 
     PaymentStatus can be one of the following:
