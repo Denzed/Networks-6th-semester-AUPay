@@ -58,6 +58,11 @@ class ClientWindow : JFrame() {
         payPanel.alignmentX = Component.LEFT_ALIGNMENT
         add(payPanel)
 
+        val getPaymentsButton = JButton("Get my payments")
+        getPaymentsButton.addActionListener(GetPaymentsButtonListener(this))
+        getPaymentsButton.alignmentX = Component.LEFT_ALIGNMENT
+        add(getPaymentsButton)
+
         revalidate()
     }
 }

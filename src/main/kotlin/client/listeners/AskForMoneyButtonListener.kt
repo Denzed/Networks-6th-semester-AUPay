@@ -39,7 +39,9 @@ class AskForMoneyButtonListener(
                         clientWindow.authToken!!)
                 executeRequestInsideClientWindow(request) { response ->
                     val paymentId = response.body.getInt("paymentId")
-                    clientWindow.showMessageDialog("Payment order was placed. Its ID is $paymentId")
+                    clientWindow.showMessageDialog(
+                        "Payment order was placed. Its ID is $paymentId. " +
+                        "Now the receiver should confirm it.")
                 }
             }
         } catch (_: Exception) {

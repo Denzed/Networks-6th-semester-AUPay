@@ -2,6 +2,7 @@ package server
 
 import com.google.common.base.Preconditions
 import network.SERVER_PORT
+import network.data.PaymentStatus
 import network.http.HttpRequest
 import network.http.HttpResponse
 import org.json.JSONArray
@@ -51,6 +52,26 @@ fun generateResponseForHttpRequest(request: HttpRequest): HttpResponse = try {
                 "OK",
                 emptyMap(),
                 JSONObject().put("paymentId", paymentId))
+        }
+        path.startsWith("/payments") -> {
+            verifyAuthTokenIsPresent(request)
+            val payment1 = JSONObject()
+            payment1.put("amount", 500)
+            payment1.put("fromAccountId", 153)
+            payment1.put("paymentId", 147982)
+            payment1.put("toAccountId", 289)
+            payment1.put("status", PaymentStatus.PLACED)
+            val payment2 = JSONObject()
+            payment2.put("amount", 50)
+            payment2.put("fromAccountId", 793)
+            payment2.put("paymentId", 213009)
+            payment2.put("toAccountId", 153)
+            payment2.put("status", PaymentStatus.SUCCESSFUL)
+            HttpResponse(
+                HttpResponse.OK_STATUS_CODE,
+                "OK",
+                emptyMap(),
+                JSONObject().put("payments", JSONArray().put(payment1).put(payment2)))
         }
         else -> throw IllegalArgumentException()
     }
