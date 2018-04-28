@@ -79,17 +79,19 @@ Types of requests:
     ```http request
     HTTP/1.1 200 OK
     
+    {}
     ```
 
 7. Denying an incoming payment request:
     
     ```http request
-    POST /dent/paymentId HTTP/1.1
+    POST /deny/paymentId HTTP/1.1
     Cookie: AuthToken=46c000b6-3717-4de7-a530-193d34e5b760
     ```
 
     ```http request
     HTTP/1.1 200 OK
     
+    {}
     ```    
 
