@@ -41,7 +41,7 @@ Types of requests:
 4. Asking to place an order of payment:
 
     ```http request
-    POST /pay/amount/fromId/toId HTTP/1.1
+    POST /pay/amount/toId HTTP/1.1
     Cookie: AuthToken=46c000b6-3717-4de7-a530-193d34e5b760
     ```
 
@@ -50,7 +50,19 @@ Types of requests:
 
     {"paymentId":147982}
 
-5. Get all payments from or to the user associated with the given AuthToken:
+5. Asking to place a request of payment:
+
+    ```http request
+    POST /request/amount/fromId HTTP/1.1
+    Cookie: AuthToken=46c000b6-3717-4de7-a530-193d34e5b760
+    ```
+
+    ```http request
+    HTTP/1.1 200 OK
+
+    {"paymentId":147982}
+
+6. Get all payments from or to the user associated with the given AuthToken:
 
     ```http request
     GET /payments
@@ -67,9 +79,10 @@ Types of requests:
     *   PLACED
     *   CONFIRMED
     *   DENIED
+    *   CANCELLED
     *   SUCCESSFUL
 
-6. Confirming an incoming payment request:
+7. Confirming an incoming payment request:
 
     ```http request
     POST /confirm/paymentId HTTP/1.1
@@ -82,7 +95,7 @@ Types of requests:
     {}
     ```
 
-7. Denying an incoming payment request:
+8. Denying an incoming payment request:
     
     ```http request
     POST /deny/paymentId HTTP/1.1
@@ -94,4 +107,14 @@ Types of requests:
     
     {}
     ```    
+9. Asking to cancel an order of payment:
 
+    ```http request
+    POST /cancel/paymentId HTTP/1.1
+    Cookie: AuthToken=46c000b6-3717-4de7-a530-193d34e5b760
+    ```
+
+    ```http request
+    HTTP/1.1 200 OK
+
+    {}
