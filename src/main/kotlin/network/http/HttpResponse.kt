@@ -33,6 +33,14 @@ class HttpResponse(
         const val OK_STATUS_CODE = 200
         const val BAD_REQUEST_STATUS_CODE = 400
 
+        fun okFromBody(body: JSONObject = JSONObject()): HttpResponse =
+                HttpResponse(
+                        HttpResponse.OK_STATUS_CODE,
+                        "OK",
+                        emptyMap(),
+                        body
+                )
+
         fun parseFromInputStream(inputStream: InputStream): HttpResponse {
             val bytes = ByteStreams.toByteArray(inputStream)
             val statusLineEnd = Bytes.indexOf(bytes, HTTP_SEPARATOR)
